@@ -5,10 +5,14 @@ import proj.finca.crea_tu_finca.entidades.Propiedad;
 import java.util.ArrayList;
 
 import org.hibernate.annotations.SQLDelete;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,15 +23,18 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Propietario extends Usuario{
+@Table(name = "PROPIETARIOS")
+public class Propietario{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private ArrayList<Propiedad> propiedades;
-     
-    public Propietario(String nombre, String apellido, String correo, 
-    int edad, int calificacion, ArrayList<Propiedad> propiedades) {
-        super(nombre, apellido, correo, edad, calificacion);
-        this.propiedades = propiedades;
-    }
+    private String nombre;
+    private String apellido;
+    private String correo;
+    private int edad;
+    private int calificacion;
+    private boolean mostrar;
+    @OneToMany(mappedBy = "propietario")     
+    private List<Propiedad> propiedades;
+    
 }
