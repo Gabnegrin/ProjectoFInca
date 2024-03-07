@@ -1,10 +1,5 @@
 package proj.finca.crea_tu_finca.entidades;
 
-import proj.finca.crea_tu_finca.entidades.Propiedad;
-
-import java.util.ArrayList;
-
-import org.hibernate.annotations.SQLDelete;
 import java.util.List;
 
 import jakarta.persistence.Entity;
