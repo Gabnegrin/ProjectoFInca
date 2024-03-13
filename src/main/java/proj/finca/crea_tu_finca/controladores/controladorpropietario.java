@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import proj.finca.crea_tu_finca.entidades.Propietario;
 import proj.finca.crea_tu_finca.repositorio.repopropietario;
 
-//@RequestMapping(value = "/api/javeriana/auth/application")
+@RequestMapping(value = "/api/javeriana/grupo25/propietario")
 @RestController
 public class controladorpropietario {
     @Autowired
