@@ -30,13 +30,10 @@ public class Propiedad {
     private int calificacion;
     private int valordia;
     //private bit imagen;
-    private boolean mostrar;
+    private boolean eliminado;
     @ManyToOne
     @JoinColumn(name = "propietario_id")
     private Propietario propietario;
     @OneToMany(mappedBy = "propiedad2")
     private List<Solicitud> solicitudes;
-    
-    
-
 }

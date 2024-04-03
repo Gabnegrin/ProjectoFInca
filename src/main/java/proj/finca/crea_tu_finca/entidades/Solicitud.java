@@ -32,13 +32,11 @@ public class Solicitud{
     private LocalDate entrada;
     private LocalDate salida;
     private int estado;
-    private boolean mostrar;
+    private boolean eliminado;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
     @ManyToOne
     @JoinColumn(name = "propiedad2_id")
     private Propiedad propiedad2;
-    
-    
 }

@@ -26,17 +26,16 @@ public class Cliente{
     private String nombre;
     private String apellido;
     private String correo;
+    private String usuario;
+    private String contrasena;
     private int edad;
     private int calificacion;
     private String no_tarjeta;
     private String nombre_tarjeta;
     private String fecha;
     private String codseguridad;
-    private boolean mostrar;
+    private boolean eliminado;
     @OneToMany(mappedBy = "cliente")
-    private List<Solicitud> solicitudes;
-    
- 
-      
+    private List<Solicitud> solicitudes;  
 }
 

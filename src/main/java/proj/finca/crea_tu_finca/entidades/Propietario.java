@@ -26,9 +26,11 @@ public class Propietario{
     private String nombre;
     private String apellido;
     private String correo;
+    private String usuario;
+    private String contrasena;
     private int edad;
     private int calificacion;
-    private boolean mostrar;
+    private boolean eliminado;
     @OneToMany(mappedBy = "propietario")     
     private List<Propiedad> propiedades;
     
