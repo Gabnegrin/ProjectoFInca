@@ -29,7 +29,7 @@ public class ClienteControlador {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/id", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ClienteDTO get(@PathVariable Long id){
         return clienteServicio.get(id);
     }
@@ -49,7 +49,7 @@ public class ClienteControlador {
         return clienteServicio.update(clienteDTO);
     }
     @CrossOrigin
-    @DeleteMapping(value = "/id", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void delete(@PathVariable Long id){
         clienteServicio.delete(id);
     }
