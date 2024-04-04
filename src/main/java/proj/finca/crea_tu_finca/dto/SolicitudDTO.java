@@ -15,7 +15,6 @@ import proj.finca.crea_tu_finca.entidades.Propiedad;
 @AllArgsConstructor
 public class SolicitudDTO {
     private long id;
-    private long id_propiedad;
     private int cali_cliente; 
     private int cali_propietario;
     private int cali_propiedad;

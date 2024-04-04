@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grupo25api
+  namespace: thymeleaf
+spec:
+  selector:
+    matchLabels:
+      app: grupo25api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+         app: grupo25api
+    spec:
+      imagePullSecrets:
+         - name: github-secret
+      containers:
+         - name: test
+           image: localhost:5000/grupo25api:latest
+           ports:
+              - containerPort: 8080
+           env:
+              - name: db_host
+                value: "190.146.2.132"
+              - name: db_port
+                value: "3306"
+              - name: db_database
+                value: "grupo_2_5"
+              - name: db_username
+                value: "grupo_2_5"
+              - name: db_password
+                value: "grupo_2_5"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grupo25api
+  namespace: thymeleaf
+spec:
+#  type: NodePort
+  selector:
+    app: grupo25api
+  ports:
+    - protocol: TCP
+      port: 8080
+#      nodePort: 30001
+      targetPort: 8080

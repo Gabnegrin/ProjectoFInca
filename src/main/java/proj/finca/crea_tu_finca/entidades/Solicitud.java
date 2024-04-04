@@ -24,7 +24,6 @@ public class Solicitud{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long id_propiedad;
     private int c_cliente; 
     private int c_propietario;
     private int c_propiedad;
