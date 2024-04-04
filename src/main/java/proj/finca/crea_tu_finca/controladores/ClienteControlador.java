@@ -18,7 +18,7 @@ import proj.finca.crea_tu_finca.dto.ClienteDTO;
 import proj.finca.crea_tu_finca.servicio.ClienteServicio;
 
 @RestController
-@RequestMapping(value = "/cliente")
+@RequestMapping(value = "/javeriana/grupo25/cliente")
 public class ClienteControlador {
 
     ClienteServicio clienteServicio;

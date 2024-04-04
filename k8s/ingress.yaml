@@ -9,7 +9,7 @@ spec:
    - host: gruposjaveriana.dynaco.co
      http:
        paths:
-       - path: /api/javeriana/grupo25
+       - path: /api
          pathType: Prefix
          backend:
            service:
