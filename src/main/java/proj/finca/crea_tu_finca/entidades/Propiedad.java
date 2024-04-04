@@ -29,7 +29,6 @@ public class Propiedad {
     private int visitas;
     private int calificacion;
     private int valordia;
-    //private bit imagen;
     private boolean eliminado;
     @ManyToOne
     @JoinColumn(name = "propietario_id")

@@ -14,12 +14,11 @@ import proj.finca.crea_tu_finca.entidades.Solicitud;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PropiedadDTO {
-    private long id;
+    private Long id;
     private String nombre;
     private int visitas;
     private int calificacion;
     private int valordia;
-    //private bit imagen;
     private boolean eliminado;
     private Propietario propietario;
     private List<Solicitud> solicitudes;

@@ -13,7 +13,7 @@ import proj.finca.crea_tu_finca.entidades.Solicitud;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClienteDTO {
-    private long id;
+    private Long id;
     private String nombre;
     private String apellido;
     private String correo;

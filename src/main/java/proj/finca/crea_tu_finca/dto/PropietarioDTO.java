@@ -13,7 +13,7 @@ import proj.finca.crea_tu_finca.entidades.Propiedad;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PropietarioDTO {
-    private long id;
+    private Long id;
     private String nombre;
     private String apellido;
     private String correo;

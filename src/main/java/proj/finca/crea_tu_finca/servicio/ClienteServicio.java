@@ -60,11 +60,11 @@ public class ClienteServicio {
     }
     @SuppressWarnings("null")
     public void delete(Long id){
-        Optional<Cliente> clienteOpt = clienterepositorio.findById(id);
-        if (clienteOpt.isPresent()) {
-            Cliente cliente = clienteOpt.get();
-            cliente.setEliminado(true);
-            clienterepositorio.save(cliente);
-        }
-    }
+    Optional<Cliente> clienteOpt = clienterepositorio.findById(id);
+    clienteOpt.ifPresent(cliente -> {
+        cliente.setEliminado(true);
+        clienterepositorio.save(cliente);
+    });
+}
+
 }
