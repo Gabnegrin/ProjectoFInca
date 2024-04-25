@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import proj.finca.crea_tu_finca.dto.PropiedadDTO;
+import proj.finca.crea_tu_finca.dto.PropiedadDTO2;
 import proj.finca.crea_tu_finca.servicio.PropiedadServicio;
 
 @RestController
@@ -30,25 +31,25 @@ public class PropiedadControlador {
 
     @CrossOrigin
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PropiedadDTO get(@PathVariable Long id) {
+    public PropiedadDTO2 get(@PathVariable Long id) {
         return propiedadServicio.get(id);
     }
 
     @CrossOrigin
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PropiedadDTO> getAll() {
+    public List<PropiedadDTO2> getAll() {
         return propiedadServicio.getAll();
     }
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public PropiedadDTO save(@RequestBody PropiedadDTO propiedadDTO) {
+    public PropiedadDTO2 save(@RequestBody PropiedadDTO propiedadDTO) {
         return propiedadServicio.save(propiedadDTO);
     }
 
     @CrossOrigin
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public PropiedadDTO update(@RequestBody PropiedadDTO propiedadDTO) {
+    public PropiedadDTO2 update(@RequestBody PropiedadDTO propiedadDTO) {
         return propiedadServicio.update(propiedadDTO);
     }
 

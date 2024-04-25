@@ -17,19 +17,19 @@ spec:
          - name: github-secret
       containers:
          - name: test
-           image: localhost:5000/grupo25:latest
+           image: localhost:5000/grupo_2_5:latest
            ports:
               - containerPort: 8080
            env:
-              - name: db_host
-                value: "190.146.2.132"
-              - name: db_port
-                value: "3306"
-              - name: db_database
+              - name: db_host2
+                value: "190.146.2.119"
+              - name: db_port2
+                value: "4407"
+              - name: db_database2
                 value: "grupo_2_5"
-              - name: db_username
+              - name: db_username2
                 value: "grupo_2_5"
-              - name: db_password
+              - name: db_password2
                 value: "grupo_2_5"
 ---
 apiVersion: v1

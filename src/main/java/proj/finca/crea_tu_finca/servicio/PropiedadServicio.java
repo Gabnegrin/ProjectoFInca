@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import proj.finca.crea_tu_finca.entidades.Propiedad;
 import proj.finca.crea_tu_finca.dto.PropiedadDTO;
+import proj.finca.crea_tu_finca.dto.PropiedadDTO2;
 import proj.finca.crea_tu_finca.repositorio.repopropiedad;
 
 @Service
@@ -25,29 +26,29 @@ public class PropiedadServicio {
     }
 
     @SuppressWarnings("null")
-    public PropiedadDTO get(Long id) {
+    public PropiedadDTO2 get(Long id) {
         Optional<Propiedad> propiedadOpt = propiedadRepositorio.findById(id);
-        return propiedadOpt.map(propiedad -> modelMapper.map(propiedad, PropiedadDTO.class)).orElse(null);
+        return propiedadOpt.map(propiedad -> modelMapper.map(propiedad, PropiedadDTO2.class)).orElse(null);
     }
 
-    public List<PropiedadDTO> getAll() {
+    public List<PropiedadDTO2> getAll() {
         List<Propiedad> propiedades = (List<Propiedad>) propiedadRepositorio.findAll();
-        return propiedades.stream().map(propiedad -> modelMapper.map(propiedad, PropiedadDTO.class))
+        return propiedades.stream().map(propiedad -> modelMapper.map(propiedad, PropiedadDTO2.class))
                 .collect(Collectors.toList());
     }
 
     @SuppressWarnings("null")
-    public PropiedadDTO save(PropiedadDTO propiedadDTO) {
+    public PropiedadDTO2 save(PropiedadDTO propiedadDTO) {
         Propiedad propiedad = modelMapper.map(propiedadDTO, Propiedad.class);
         propiedad = propiedadRepositorio.save(propiedad);
-        return modelMapper.map(propiedad, PropiedadDTO.class);
+        return modelMapper.map(propiedad, PropiedadDTO2.class);
     }
 
     @SuppressWarnings("null")
-    public PropiedadDTO update(PropiedadDTO propiedadDTO) {
+    public PropiedadDTO2 update(PropiedadDTO propiedadDTO) {
         Propiedad propiedad = modelMapper.map(propiedadDTO, Propiedad.class);
         propiedad = propiedadRepositorio.save(propiedad);
-        return modelMapper.map(propiedad, PropiedadDTO.class);
+        return modelMapper.map(propiedad, PropiedadDTO2.class);
     }
 
     @SuppressWarnings("null")

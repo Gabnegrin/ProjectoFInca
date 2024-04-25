@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import proj.finca.crea_tu_finca.dto.ClienteDTO;
+import proj.finca.crea_tu_finca.entidades.Cliente;
+import proj.finca.crea_tu_finca.dto.ClienteDTO2;
 import proj.finca.crea_tu_finca.servicio.ClienteServicio;
 
 @RestController
@@ -30,23 +31,23 @@ public class ClienteControlador {
 
     @CrossOrigin
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ClienteDTO get(@PathVariable Long id){
+    public ClienteDTO2 get(@PathVariable Long id){
         return clienteServicio.get(id);
     }
     @CrossOrigin
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ClienteDTO> get(){
+    public List<ClienteDTO2> get(){
         return clienteServicio.get();
     }
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ClienteDTO save(@RequestBody ClienteDTO clienteDTO){
-        return clienteServicio.save(clienteDTO);
+    public ClienteDTO2 save(@RequestBody Cliente clientee){
+        return clienteServicio.save(clientee);
     }
     @CrossOrigin
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ClienteDTO update(@RequestBody ClienteDTO clienteDTO){
-        return clienteServicio.update(clienteDTO);
+    public ClienteDTO2 update(@RequestBody Cliente clientee){
+        return clienteServicio.update(clientee);
     }
     @CrossOrigin
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

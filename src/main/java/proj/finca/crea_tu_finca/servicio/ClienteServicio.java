@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import proj.finca.crea_tu_finca.entidades.Cliente;
-import proj.finca.crea_tu_finca.dto.ClienteDTO;
+import proj.finca.crea_tu_finca.dto.ClienteDTO2;
 import proj.finca.crea_tu_finca.repositorio.repocliente;
 
 @Service
@@ -25,37 +25,36 @@ public class ClienteServicio {
     }
 
     @SuppressWarnings("null")
-    public ClienteDTO get(Long id){
+    public ClienteDTO2 get(Long id){
         Optional<Cliente>clienteOpt = clienterepositorio.findById(id);
-        ClienteDTO clienteDTO = null;
+        ClienteDTO2 clienteDTO2 = null;
         if(clienteOpt.isPresent()){
             Cliente client = clienteOpt.get();
-            clienteDTO = modelMapper.map(client, ClienteDTO.class);
+            clienteDTO2 = modelMapper.map(client, ClienteDTO2.class);
         }
-        return clienteDTO;
+        return clienteDTO2;
     }
 
-    public List<ClienteDTO> get(){
+    public List<ClienteDTO2> get(){
         List<Cliente> clientes = (List<Cliente>) clienterepositorio.findAll();
-        List<ClienteDTO> clienteDTOs = clientes.stream()
-                                                        .map(cliente -> modelMapper.map(cliente, ClienteDTO.class))
+        List<ClienteDTO2> clienteDTO2s = clientes.stream()
+                                                        .map(cliente -> modelMapper.map(cliente, ClienteDTO2.class))
                                                         .collect(Collectors.toList());
-        return clienteDTOs;
+        return clienteDTO2s;
     }
     
     @SuppressWarnings("null")
-    public ClienteDTO save(ClienteDTO clienteDTO){
-        Cliente cliente = modelMapper.map(clienteDTO, Cliente.class);
+    public ClienteDTO2 save(Cliente clientee){
+        Cliente cliente = clientee;
         cliente = clienterepositorio.save(cliente);
-        clienteDTO = modelMapper.map(cliente, ClienteDTO.class);
+        ClienteDTO2 clienteDTO = modelMapper.map(cliente, ClienteDTO2.class);
         return clienteDTO;
     }
 
     @SuppressWarnings("null")
-    public ClienteDTO update(ClienteDTO clienteDTO){
-        Cliente cliente = modelMapper.map(clienteDTO, Cliente.class);
-        cliente = clienterepositorio.save(cliente);
-        clienteDTO = modelMapper.map(cliente, ClienteDTO.class);
+    public ClienteDTO2 update(Cliente clientee){
+        Cliente cliente = clienterepositorio.save(clientee);
+        ClienteDTO2 clienteDTO = modelMapper.map(cliente, ClienteDTO2.class);
         return clienteDTO;
     }
     @SuppressWarnings("null")

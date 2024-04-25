@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import proj.finca.crea_tu_finca.entidades.Propietario;
-import proj.finca.crea_tu_finca.dto.PropietarioDTO;
+import proj.finca.crea_tu_finca.dto.PropietarioDTO2;
 import proj.finca.crea_tu_finca.repositorio.repopropietario;
 
 @Service
@@ -25,29 +25,28 @@ public class PropietarioServicio {
     }
 
     @SuppressWarnings("null")
-    public PropietarioDTO get(Long id) {
+    public PropietarioDTO2 get(Long id) {
         Optional<Propietario> propietarioOpt = propietarioRepositorio.findById(id);
-        return propietarioOpt.map(propietario -> modelMapper.map(propietario, PropietarioDTO.class)).orElse(null);
+        return propietarioOpt.map(propietario -> modelMapper.map(propietario, PropietarioDTO2.class)).orElse(null);
     }
 
-    public List<PropietarioDTO> getAll() {
+    public List<PropietarioDTO2> getAll() {
         List<Propietario> propietarios = (List<Propietario>) propietarioRepositorio.findAll();
-        return propietarios.stream().map(propietario -> modelMapper.map(propietario, PropietarioDTO.class))
+        return propietarios.stream().map(propietario -> modelMapper.map(propietario, PropietarioDTO2.class))
                 .collect(Collectors.toList());
     }
 
     @SuppressWarnings("null")
-    public PropietarioDTO save(PropietarioDTO propietarioDTO) {
-        Propietario propietario = modelMapper.map(propietarioDTO, Propietario.class);
+    public PropietarioDTO2 save(Propietario propietarioo) {
+        Propietario propietario = propietarioo;
         propietario = propietarioRepositorio.save(propietario);
-        return modelMapper.map(propietario, PropietarioDTO.class);
+        return modelMapper.map(propietario, PropietarioDTO2.class);
     }
 
     @SuppressWarnings("null")
-    public PropietarioDTO update(PropietarioDTO propietarioDTO) {
-        Propietario propietario = modelMapper.map(propietarioDTO, Propietario.class);
-        propietario = propietarioRepositorio.save(propietario);
-        return modelMapper.map(propietario, PropietarioDTO.class);
+    public PropietarioDTO2 update(Propietario propietarioo) {
+        Propietario propietario = propietarioRepositorio.save(propietarioo);
+        return modelMapper.map(propietario, PropietarioDTO2.class);
     }
 
     @SuppressWarnings("null")
