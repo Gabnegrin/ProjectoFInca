@@ -24,31 +24,31 @@ public class AuxControlador {
         this.auxServicio = auxServicio;
     }
 
-    @CrossOrigin
+    @CrossOrigin(origins = "http://10.43.101.3:4200")
     @PostMapping(value = "/cliente/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ClienteDTO2 autenticarCliente(@RequestBody Cliente cliente) {
         return auxServicio.ClientegetByUsernameAndPassword(cliente);
     }
 
-    @CrossOrigin
+    @CrossOrigin(origins = "http://10.43.101.3:4200")
     @PostMapping(value = "/propietario/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public PropietarioDTO2 autenticarPropietario(@RequestBody Propietario propietario) {
         return auxServicio.PropietariogetByUsernameAndPassword(propietario);
     }
 
-    @CrossOrigin
+    @CrossOrigin(origins = "http://10.43.101.3:4200")
     @GetMapping(value = "/solicitud/propietario/{propietarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<SolicitudDTO2> obtenerSolicitudesPorPropietario(@PathVariable Long propietarioId) {
         return auxServicio.getByPropietarioId(propietarioId);
     }
 
-    @CrossOrigin
+    @CrossOrigin(origins = "http://10.43.101.3:4200")
     @GetMapping(value = "/solicitud/cliente/{clienteId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<SolicitudDTO2> obtenerSolicitudesPorCliente(@PathVariable Long clienteId) {
         return auxServicio.getByClienteId(clienteId);
     }
 
-    @CrossOrigin
+    @CrossOrigin(origins = "http://10.43.101.3:4200")
     @GetMapping(value = "/propiedad/propietario/{propietarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PropiedadDTO2> obtenerPropiedadesPorPropietario(@PathVariable Long propietarioId) {
         return auxServicio.propiedadesgetByPropietarioId(propietarioId);
