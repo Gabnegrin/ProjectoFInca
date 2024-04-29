@@ -1,11 +1,13 @@
 package proj.finca.crea_tu_finca.servicio;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import proj.finca.crea_tu_finca.dto.ClienteDTO2;
 import proj.finca.crea_tu_finca.dto.PropiedadDTO2;
@@ -20,6 +22,7 @@ import proj.finca.crea_tu_finca.repositorio.repopropiedad;
 import proj.finca.crea_tu_finca.repositorio.repopropietario;
 import proj.finca.crea_tu_finca.repositorio.reposolicitud;
 
+@Service
 public class AuxServicio {
     repopropietario propietariorepositorio;
     repocliente clienterepositorio;
@@ -64,10 +67,24 @@ public class AuxServicio {
     }
     
     public List<SolicitudDTO2> getByPropietarioId(Long propietarioId) {
-        List<Solicitud> solicitudes = solicitudrepositorio.findByPropietarioId(propietarioId);
-        return solicitudes.stream()
-                .map(solicitud -> modelMapper.map(solicitud, SolicitudDTO2.class))
-                .collect(Collectors.toList());
+        // Obtener todas las propiedades del propietario
+        List<Propiedad> propiedades = propiedadrepositorio.findByPropietarioId(propietarioId);
+
+        // Inicializar una lista para almacenar todas las solicitudes
+        List<SolicitudDTO2> todasLasSolicitudes = new ArrayList<>();
+
+        // Iterar sobre cada propiedad y obtener las solicitudes asociadas a cada una
+        for (Propiedad propiedad : propiedades) {
+            // Obtener las solicitudes asociadas a la propiedad actual
+            List<Solicitud> solicitudes = solicitudrepositorio.findByPropiedad2(propiedad);
+            
+            // Mapear las solicitudes a DTOs y agregarlas a la lista de todas las solicitudes
+            todasLasSolicitudes.addAll(solicitudes.stream()
+                    .map(solicitud -> modelMapper.map(solicitud, SolicitudDTO2.class))
+                    .collect(Collectors.toList()));
+        }
+
+        return todasLasSolicitudes;
     }
     public List<SolicitudDTO2> getByClienteId(Long clienteId) {
         List<Solicitud> solicitudes = solicitudrepositorio.findByClienteId(clienteId);

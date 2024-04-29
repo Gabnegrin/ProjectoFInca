@@ -25,13 +25,13 @@ public class AuxControlador {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/cliente/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/cliente/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ClienteDTO2 autenticarCliente(@RequestBody Cliente cliente) {
         return auxServicio.ClientegetByUsernameAndPassword(cliente);
     }
 
     @CrossOrigin
-    @GetMapping(value = "/propietario/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/propietario/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public PropietarioDTO2 autenticarPropietario(@RequestBody Propietario propietario) {
         return auxServicio.PropietariogetByUsernameAndPassword(propietario);
     }
