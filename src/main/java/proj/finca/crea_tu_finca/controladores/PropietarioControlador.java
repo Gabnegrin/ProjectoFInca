@@ -29,31 +29,31 @@ public class PropietarioControlador {
         this.propietarioServicio = propietarioServicio;
     }
 
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public PropietarioDTO2 get(@PathVariable Long id) {
         return propietarioServicio.get(id);
     }
 
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PropietarioDTO2> getAll() {
         return propietarioServicio.getAll();
     }
 
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public PropietarioDTO2 save(@RequestBody Propietario propietarioo) {
         return propietarioServicio.save(propietarioo);
     }
 
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public PropietarioDTO2 update(@RequestBody Propietario propietarioo) {
         return propietarioServicio.update(propietarioo);
     }
 
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void delete(@PathVariable Long id) {
         propietarioServicio.delete(id);

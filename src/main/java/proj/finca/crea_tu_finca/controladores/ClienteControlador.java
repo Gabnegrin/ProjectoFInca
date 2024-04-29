@@ -29,27 +29,27 @@ public class ClienteControlador {
         this.clienteServicio = clienteServicio;
     }
 
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ClienteDTO2 get(@PathVariable Long id){
         return clienteServicio.get(id);
     }
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ClienteDTO2> get(){
         return clienteServicio.get();
     }
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ClienteDTO2 save(@RequestBody Cliente clientee){
         return clienteServicio.save(clientee);
     }
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ClienteDTO2 update(@RequestBody Cliente clientee){
         return clienteServicio.update(clientee);
     }
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void delete(@PathVariable Long id){
         clienteServicio.delete(id);

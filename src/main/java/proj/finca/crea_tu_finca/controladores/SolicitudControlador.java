@@ -29,31 +29,31 @@ public class SolicitudControlador {
         this.solicitudServicio = solicitudServicio;
     }
 
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public SolicitudDTO2 get(@PathVariable Long id) {
         return solicitudServicio.get(id);
     }
 
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<SolicitudDTO2> getAll() {
         return solicitudServicio.getAll();
     }
 
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public SolicitudDTO2 save(@RequestBody SolicitudDTO solicitudDTO) {
         return solicitudServicio.save(solicitudDTO);
     }
 
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public SolicitudDTO2 update(@RequestBody SolicitudDTO solicitudDTO) {
         return solicitudServicio.update(solicitudDTO);
     }
 
-    @CrossOrigin(origins = "http://10.43.101.3:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void delete(@PathVariable Long id) {
         solicitudServicio.delete(id);
