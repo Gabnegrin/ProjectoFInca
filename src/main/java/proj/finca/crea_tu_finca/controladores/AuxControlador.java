@@ -36,19 +36,19 @@ public class AuxControlador {
         return auxServicio.PropietariogetByUsernameAndPassword(propietario);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "/solicitud/propietario/{propietarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<SolicitudDTO2> obtenerSolicitudesPorPropietario(@PathVariable Long propietarioId) {
         return auxServicio.getByPropietarioId(propietarioId);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "/solicitud/cliente/{clienteId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<SolicitudDTO2> obtenerSolicitudesPorCliente(@PathVariable Long clienteId) {
         return auxServicio.getByClienteId(clienteId);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "/propiedad/propietario/{propietarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PropiedadDTO2> obtenerPropiedadesPorPropietario(@PathVariable Long propietarioId) {
         return auxServicio.propiedadesgetByPropietarioId(propietarioId);

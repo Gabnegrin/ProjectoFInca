@@ -30,31 +30,31 @@ public class SolicitudControlador {
         this.solicitudServicio = solicitudServicio;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public SolicitudDTO2 get(@PathVariable Long id) {
         return solicitudServicio.get(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<SolicitudDTO2> getAll() {
         return solicitudServicio.getAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public SolicitudDTO2 save(@RequestBody SolicitudDTO solicitudDTO) {
         return solicitudServicio.save(solicitudDTO);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public SolicitudDTO2 update(@RequestBody Solicitud solicitud) {
         return solicitudServicio.update(solicitud);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void delete(@PathVariable Long id) {
         solicitudServicio.delete(id);

@@ -36,25 +36,25 @@ public class PropiedadControlador {
         return propiedadServicio.get(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PropiedadDTO2> getAll() {
         return propiedadServicio.getAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public PropiedadDTO2 save(@RequestBody PropiedadDTO propiedadDTO) {
         return propiedadServicio.save(propiedadDTO);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public PropiedadDTO2 update(@RequestBody Propiedad propiedad) {
         return propiedadServicio.update(propiedad);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void delete(@PathVariable Long id) {
         propiedadServicio.delete(id);
