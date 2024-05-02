@@ -45,10 +45,43 @@ public class SolicitudServicio {
     }
 
     @SuppressWarnings("null")
-    public SolicitudDTO2 update(SolicitudDTO solicitudDTO) {
-        Solicitud solicitud = modelMapper.map(solicitudDTO, Solicitud.class);
-        solicitud = solicitudRepositorio.save(solicitud);
-        return modelMapper.map(solicitud, SolicitudDTO2.class);
+    public SolicitudDTO2 update(Solicitud solicitud) {
+        Optional<Solicitud> solicitudOptional = solicitudRepositorio.findById(solicitud.getId());
+    
+        if (solicitudOptional.isPresent()) {
+            Solicitud solicitudDB = solicitudOptional.get();
+            
+            if (solicitud.getC_cliente() != 0) {
+                solicitudDB.setC_cliente(solicitud.getC_cliente());
+            }
+            if (solicitud.getC_propietario() != 0) {
+                solicitudDB.setC_propietario(solicitud.getC_propietario());
+            }
+            if (solicitud.getC_propiedad() != 0) {
+                solicitudDB.setC_propiedad(solicitud.getC_propiedad());
+            }
+            if (solicitud.getPreciot() != 0) {
+                solicitudDB.setPreciot(solicitud.getPreciot());
+            }
+            if (solicitud.getEntrada() != null) {
+                solicitudDB.setEntrada(solicitud.getEntrada());
+            }
+            if (solicitud.getSalida() != null) {
+                solicitudDB.setSalida(solicitud.getSalida());
+            }
+            if (solicitud.getEstado() != 0) {
+                solicitudDB.setEstado(solicitud.getEstado());
+            }
+            if (solicitud.isEliminado() != solicitudDB.isEliminado()) {
+                solicitudDB.setEliminado(solicitud.isEliminado());
+            }
+            Solicitud solicitudActualizada = solicitudRepositorio.save(solicitudDB);
+            SolicitudDTO2 solicitudDTO = modelMapper.map(solicitudActualizada, SolicitudDTO2.class);
+            
+            return solicitudDTO;
+        } else {
+            return null;
+        }
     }
 
     @SuppressWarnings("null")

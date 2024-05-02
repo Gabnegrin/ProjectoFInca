@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import proj.finca.crea_tu_finca.dto.PropiedadDTO;
 import proj.finca.crea_tu_finca.dto.PropiedadDTO2;
+import proj.finca.crea_tu_finca.entidades.Propiedad;
 import proj.finca.crea_tu_finca.servicio.PropiedadServicio;
 
 @RestController
@@ -49,8 +50,8 @@ public class PropiedadControlador {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public PropiedadDTO2 update(@RequestBody PropiedadDTO propiedadDTO) {
-        return propiedadServicio.update(propiedadDTO);
+    public PropiedadDTO2 update(@RequestBody Propiedad propiedad) {
+        return propiedadServicio.update(propiedad);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

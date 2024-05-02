@@ -45,10 +45,36 @@ public class PropiedadServicio {
     }
 
     @SuppressWarnings("null")
-    public PropiedadDTO2 update(PropiedadDTO propiedadDTO) {
-        Propiedad propiedad = modelMapper.map(propiedadDTO, Propiedad.class);
-        propiedad = propiedadRepositorio.save(propiedad);
-        return modelMapper.map(propiedad, PropiedadDTO2.class);
+    public PropiedadDTO2 update(Propiedad propiedadd) {
+        Optional<Propiedad> propiedadOptional = propiedadRepositorio.findById(propiedadd.getId());
+    
+        if (propiedadOptional.isPresent()) {
+            Propiedad propiedadDB = propiedadOptional.get();
+            
+            if (propiedadd.getNombre() != null) {
+                propiedadDB.setNombre(propiedadd.getNombre());
+            }
+            if (propiedadd.getVisitas() != 0) {
+                propiedadDB.setVisitas(propiedadd.getVisitas());
+            }
+            if (propiedadd.getCalificacion() != 0) {
+                propiedadDB.setCalificacion(propiedadd.getCalificacion());
+            }
+            if (propiedadd.getValordia() != 0) {
+                propiedadDB.setValordia(propiedadd.getValordia());
+            }
+            if (propiedadd.isEliminado() != propiedadDB.isEliminado()) {
+                propiedadDB.setEliminado(propiedadd.isEliminado());
+            }
+            
+
+            Propiedad propiedadActualizada = propiedadRepositorio.save(propiedadDB);
+            PropiedadDTO2 propiedadDTO = modelMapper.map(propiedadActualizada, PropiedadDTO2.class);
+            
+            return propiedadDTO;
+        } else {
+            return null;
+        }
     }
 
     @SuppressWarnings("null")

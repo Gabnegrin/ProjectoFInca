@@ -45,8 +45,44 @@ public class PropietarioServicio {
 
     @SuppressWarnings("null")
     public PropietarioDTO2 update(Propietario propietarioo) {
-        Propietario propietario = propietarioRepositorio.save(propietarioo);
-        return modelMapper.map(propietario, PropietarioDTO2.class);
+        Optional<Propietario> propietarioOptional = propietarioRepositorio.findById(propietarioo.getId());
+    
+        if (propietarioOptional.isPresent()) {
+            Propietario propietarioDB = propietarioOptional.get();
+            
+            // Comparar y actualizar las propiedades
+            if (propietarioo.getNombre() != null) {
+                propietarioDB.setNombre(propietarioo.getNombre());
+            }
+            if (propietarioo.getApellido() != null) {
+                propietarioDB.setApellido(propietarioo.getApellido());
+            }
+            if (propietarioo.getCorreo() != null) {
+                propietarioDB.setCorreo(propietarioo.getCorreo());
+            }
+            if (propietarioo.getUsuario() != null) {
+                propietarioDB.setUsuario(propietarioo.getUsuario());
+            }
+            if (propietarioo.getContrasena() != null) {
+                propietarioDB.setContrasena(propietarioo.getContrasena());
+            }
+            if (propietarioo.getEdad() != 0) {
+                propietarioDB.setEdad(propietarioo.getEdad());
+            }
+            if (propietarioo.getCalificacion() != 0) {
+                propietarioDB.setCalificacion(propietarioo.getCalificacion());
+            }
+            if (propietarioo.isEliminado() != propietarioDB.isEliminado()) {
+                propietarioDB.setEliminado(propietarioo.isEliminado());
+            }
+            
+            Propietario propietarioActualizado = propietarioRepositorio.save(propietarioDB);
+            PropietarioDTO2 propietarioDTO = modelMapper.map(propietarioActualizado, PropietarioDTO2.class);
+            
+            return propietarioDTO;
+        } else {
+            return null;
+        }
     }
 
     @SuppressWarnings("null")
