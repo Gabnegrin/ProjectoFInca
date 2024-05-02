@@ -30,7 +30,7 @@ public class AuxControlador {
         return auxServicio.ClientegetByUsernameAndPassword(cliente);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @PostMapping(value = "/propietario/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public PropietarioDTO2 autenticarPropietario(@RequestBody Propietario propietario) {
         return auxServicio.PropietariogetByUsernameAndPassword(propietario);
