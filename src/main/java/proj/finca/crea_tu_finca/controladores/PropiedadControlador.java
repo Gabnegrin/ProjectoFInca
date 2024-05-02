@@ -30,7 +30,7 @@ public class PropiedadControlador {
         this.propiedadServicio = propiedadServicio;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public PropiedadDTO2 get(@PathVariable Long id) {
         return propiedadServicio.get(id);

@@ -24,7 +24,7 @@ public class AuxControlador {
         this.auxServicio = auxServicio;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @PostMapping(value = "/cliente/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ClienteDTO2 autenticarCliente(@RequestBody Cliente cliente) {
         return auxServicio.ClientegetByUsernameAndPassword(cliente);
