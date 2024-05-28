@@ -38,20 +38,20 @@ public class AuxControlador {
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/solicitud/propietario/{propietarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<SolicitudDTO2> obtenerSolicitudesPorPropietario(@PathVariable Long propietarioId) {
-        return auxServicio.getByPropietarioId(propietarioId);
+    public List<SolicitudDTO2> obtenerSolicitudesPorPropietario(@PathVariable Long propietarioId, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return auxServicio.getByPropietarioId(propietarioId, authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/solicitud/cliente/{clienteId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<SolicitudDTO2> obtenerSolicitudesPorCliente(@PathVariable Long clienteId) {
-        return auxServicio.getByClienteId(clienteId);
+    public List<SolicitudDTO2> obtenerSolicitudesPorCliente(@PathVariable Long clienteId, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return auxServicio.getByClienteId(clienteId, authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/propiedad/propietario/{propietarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PropiedadDTO2> obtenerPropiedadesPorPropietario(@PathVariable Long propietarioId) {
-        return auxServicio.propiedadesgetByPropietarioId(propietarioId);
+    public List<PropiedadDTO2> obtenerPropiedadesPorPropietario(@PathVariable Long propietarioId, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return auxServicio.propiedadesgetByPropietarioId(propietarioId, authorizationHeader);
     }
 }
 

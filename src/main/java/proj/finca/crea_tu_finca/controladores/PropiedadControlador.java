@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,31 +33,31 @@ public class PropiedadControlador {
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PropiedadDTO2 get(@PathVariable Long id) {
-        return propiedadServicio.get(id);
+    public PropiedadDTO2 get(@PathVariable Long id, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return propiedadServicio.get(id, authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PropiedadDTO2> getAll() {
-        return propiedadServicio.getAll();
+    public List<PropiedadDTO2> getAll(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return propiedadServicio.getAll(authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public PropiedadDTO2 save(@RequestBody PropiedadDTO propiedadDTO) {
-        return propiedadServicio.save(propiedadDTO);
+    public PropiedadDTO2 save(@RequestBody PropiedadDTO propiedadDTO, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return propiedadServicio.save(propiedadDTO, authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public PropiedadDTO2 update(@RequestBody Propiedad propiedad) {
-        return propiedadServicio.update(propiedad);
+    public PropiedadDTO2 update(@RequestBody Propiedad propiedad, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return propiedadServicio.update(propiedad, authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable Long id) {
-        propiedadServicio.delete(id);
+    public void delete(@PathVariable Long id, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        propiedadServicio.delete(id, authorizationHeader);
     }
 }

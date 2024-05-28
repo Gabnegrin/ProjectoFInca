@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,14 +32,14 @@ public class PropietarioControlador {
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PropietarioDTO2 get(@PathVariable Long id) {
-        return propietarioServicio.get(id);
+    public PropietarioDTO2 get(@PathVariable Long id, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return propietarioServicio.get(id, authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PropietarioDTO2> getAll() {
-        return propietarioServicio.getAll();
+    public List<PropietarioDTO2> getAll(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return propietarioServicio.getAll(authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
@@ -49,13 +50,13 @@ public class PropietarioControlador {
 
     @CrossOrigin(origins = "*")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public PropietarioDTO2 update(@RequestBody Propietario propietarioo) {
-        return propietarioServicio.update(propietarioo);
+    public PropietarioDTO2 update(@RequestBody Propietario propietarioo, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return propietarioServicio.update(propietarioo, authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable Long id) {
-        propietarioServicio.delete(id);
+    public void delete(@PathVariable Long id, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        propietarioServicio.delete(id, authorizationHeader);
     }
 }

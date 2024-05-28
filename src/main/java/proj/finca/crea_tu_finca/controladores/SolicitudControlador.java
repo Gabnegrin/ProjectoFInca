@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,31 +33,31 @@ public class SolicitudControlador {
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public SolicitudDTO2 get(@PathVariable Long id) {
-        return solicitudServicio.get(id);
+    public SolicitudDTO2 get(@PathVariable Long id, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return solicitudServicio.get(id, authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<SolicitudDTO2> getAll() {
-        return solicitudServicio.getAll();
+    public List<SolicitudDTO2> getAll(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return solicitudServicio.getAll(authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public SolicitudDTO2 save(@RequestBody SolicitudDTO solicitudDTO) {
-        return solicitudServicio.save(solicitudDTO);
+    public SolicitudDTO2 save(@RequestBody SolicitudDTO solicitudDTO, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return solicitudServicio.save(solicitudDTO, authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public SolicitudDTO2 update(@RequestBody Solicitud solicitud) {
-        return solicitudServicio.update(solicitud);
+    public SolicitudDTO2 update(@RequestBody Solicitud solicitud, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        return solicitudServicio.update(solicitud, authorizationHeader);
     }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable Long id) {
-        solicitudServicio.delete(id);
+    public void delete(@PathVariable Long id, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        solicitudServicio.delete(id, authorizationHeader);
     }
 }

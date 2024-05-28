@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.jsonwebtoken.Claims;
 import proj.finca.crea_tu_finca.dto.ClienteDTO2;
 import proj.finca.crea_tu_finca.dto.PropiedadDTO2;
 import proj.finca.crea_tu_finca.dto.PropietarioDTO2;
@@ -17,6 +18,8 @@ import proj.finca.crea_tu_finca.entidades.Cliente;
 import proj.finca.crea_tu_finca.entidades.Propiedad;
 import proj.finca.crea_tu_finca.entidades.Propietario;
 import proj.finca.crea_tu_finca.entidades.Solicitud;
+import proj.finca.crea_tu_finca.exceptions.ForbiddenException;
+import proj.finca.crea_tu_finca.exceptions.UnauthorizedException;
 import proj.finca.crea_tu_finca.repositorio.repocliente;
 import proj.finca.crea_tu_finca.repositorio.repopropiedad;
 import proj.finca.crea_tu_finca.repositorio.repopropietario;
@@ -29,14 +32,16 @@ public class AuxServicio {
     repopropiedad propiedadrepositorio;
     reposolicitud solicitudrepositorio;
     ModelMapper modelMapper;
+    JWTTokenService tokenService;
 
     @Autowired
-    AuxServicio(repocliente clienterepositorio, ModelMapper modelMapper, repopropiedad propiedadrepositorio, repopropietario propietariorepositorio, reposolicitud solcitudrepositorio){
+    AuxServicio(repocliente clienterepositorio, ModelMapper modelMapper, repopropiedad propiedadrepositorio, repopropietario propietariorepositorio, reposolicitud solcitudrepositorio, JWTTokenService tokenservice){
         this.clienterepositorio = clienterepositorio;
         this.modelMapper = modelMapper;
         this.propiedadrepositorio = propiedadrepositorio;
         this.propietariorepositorio = propietariorepositorio;
         this.solicitudrepositorio = solcitudrepositorio;
+        this.tokenService = tokenservice;
     }
 
     public ClienteDTO2 ClientegetByUsernameAndPassword(Cliente cliente) {
@@ -67,23 +72,15 @@ public class AuxServicio {
     }
     
     public List<SolicitudDTO2> getByPropietarioId(Long propietarioId) {
-        // Obtener todas las propiedades del propietario
         List<Propiedad> propiedades = propiedadrepositorio.findByPropietarioId(propietarioId);
-
-        // Inicializar una lista para almacenar todas las solicitudes
         List<SolicitudDTO2> todasLasSolicitudes = new ArrayList<>();
 
-        // Iterar sobre cada propiedad y obtener las solicitudes asociadas a cada una
         for (Propiedad propiedad : propiedades) {
-            // Obtener las solicitudes asociadas a la propiedad actual
             List<Solicitud> solicitudes = solicitudrepositorio.findByPropiedad2(propiedad);
-            
-            // Mapear las solicitudes a DTOs y agregarlas a la lista de todas las solicitudes
             todasLasSolicitudes.addAll(solicitudes.stream()
                     .map(solicitud -> modelMapper.map(solicitud, SolicitudDTO2.class))
                     .collect(Collectors.toList()));
         }
-
         return todasLasSolicitudes;
     }
     public List<SolicitudDTO2> getByClienteId(Long clienteId) {
@@ -93,6 +90,101 @@ public class AuxServicio {
                 .collect(Collectors.toList());
     }
     public List<PropiedadDTO2> propiedadesgetByPropietarioId(Long propietarioId) {
+        List<Propiedad> propiedades = propiedadrepositorio.findByPropietarioId(propietarioId);
+        return propiedades.stream()
+                .map(propiedad -> modelMapper.map(propiedad, PropiedadDTO2.class))
+                .collect(Collectors.toList());
+    }
+
+
+
+
+
+    //jwt
+
+
+
+
+    public List<SolicitudDTO2> getByPropietarioId(Long propietarioId, String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new UnauthorizedException("Missing or invalid authorization header");
+        }
+    
+        String token = authorizationHeader.substring(7);
+    
+        Claims claims;
+        try {
+            claims = this.tokenService.decodificarToken(token);
+        } catch (Exception e) {
+            throw new UnauthorizedException("Invalid JWT token: " + e.getMessage());
+        }
+    
+        List<String> authorities = (List<String>) claims.get("authorities");
+        if (authorities != null && !authorities.isEmpty()) {
+            if (!authorities.contains("ROLE_PROPIETARIO")) {
+                throw new ForbiddenException("Insufficient permissions");
+            }
+        }
+        List<Propiedad> propiedades = propiedadrepositorio.findByPropietarioId(propietarioId);
+        List<SolicitudDTO2> todasLasSolicitudes = new ArrayList<>();
+
+        for (Propiedad propiedad : propiedades) {
+            List<Solicitud> solicitudes = solicitudrepositorio.findByPropiedad2(propiedad);
+            todasLasSolicitudes.addAll(solicitudes.stream()
+                    .map(solicitud -> modelMapper.map(solicitud, SolicitudDTO2.class))
+                    .collect(Collectors.toList()));
+        }
+        return todasLasSolicitudes;
+    }
+
+
+    public List<SolicitudDTO2> getByClienteId(Long clienteId, String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new UnauthorizedException("Missing or invalid authorization header");
+        }
+    
+        String token = authorizationHeader.substring(7);
+    
+        Claims claims;
+        try {
+            claims = this.tokenService.decodificarToken(token);
+        } catch (Exception e) {
+            throw new UnauthorizedException("Invalid JWT token: " + e.getMessage());
+        }
+    
+        List<String> authorities = (List<String>) claims.get("authorities");
+        if (authorities != null && !authorities.isEmpty()) {
+            if (!authorities.contains("ROLE_CLIENTE")) {
+                throw new ForbiddenException("Insufficient permissions");
+            }
+        }
+        List<Solicitud> solicitudes = solicitudrepositorio.findByClienteId(clienteId);
+        return solicitudes.stream()
+                .map(solicitud -> modelMapper.map(solicitud, SolicitudDTO2.class))
+                .collect(Collectors.toList());
+    }
+
+
+    public List<PropiedadDTO2> propiedadesgetByPropietarioId(Long propietarioId, String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new UnauthorizedException("Missing or invalid authorization header");
+        }
+    
+        String token = authorizationHeader.substring(7);
+    
+        Claims claims;
+        try {
+            claims = this.tokenService.decodificarToken(token);
+        } catch (Exception e) {
+            throw new UnauthorizedException("Invalid JWT token: " + e.getMessage());
+        }
+    
+        List<String> authorities = (List<String>) claims.get("authorities");
+        if (authorities != null && !authorities.isEmpty()) {
+            if (!authorities.contains("ROLE_PROPIETARIO")) {
+                throw new ForbiddenException("Insufficient permissions");
+            }
+        }
         List<Propiedad> propiedades = propiedadrepositorio.findByPropietarioId(propietarioId);
         return propiedades.stream()
                 .map(propiedad -> modelMapper.map(propiedad, PropiedadDTO2.class))
