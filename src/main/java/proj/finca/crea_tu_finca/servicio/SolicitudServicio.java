@@ -9,11 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
+import proj.finca.crea_tu_finca.entidades.Cliente;
+import proj.finca.crea_tu_finca.entidades.Propiedad;
 import proj.finca.crea_tu_finca.entidades.Solicitud;
 import proj.finca.crea_tu_finca.exceptions.ForbiddenException;
 import proj.finca.crea_tu_finca.exceptions.UnauthorizedException;
 import proj.finca.crea_tu_finca.dto.SolicitudDTO;
 import proj.finca.crea_tu_finca.dto.SolicitudDTO2;
+import proj.finca.crea_tu_finca.dto.SolicitudDTO3;
+import proj.finca.crea_tu_finca.repositorio.repocliente;
+import proj.finca.crea_tu_finca.repositorio.repopropiedad;
 import proj.finca.crea_tu_finca.repositorio.reposolicitud;
 
 @Service
@@ -22,12 +27,16 @@ public class SolicitudServicio {
     private final reposolicitud solicitudRepositorio;
     private final ModelMapper modelMapper;
     JWTTokenService tokenService;
+    repocliente repocliente;
+    repopropiedad repopropiedad;
 
     @Autowired
-    public SolicitudServicio(reposolicitud solicitudRepositorio, ModelMapper modelMapper, JWTTokenService tokenservice) {
+    public SolicitudServicio(reposolicitud solicitudRepositorio, ModelMapper modelMapper, JWTTokenService tokenservice, repocliente repocliente, repopropiedad repopropiedad) {
         this.solicitudRepositorio = solicitudRepositorio;
         this.modelMapper = modelMapper;
         this.tokenService = tokenservice;
+        this.repocliente = repocliente;
+        this.repopropiedad = repopropiedad;
     }
 
     @SuppressWarnings("null")
@@ -157,28 +166,31 @@ public class SolicitudServicio {
     }
 
     @SuppressWarnings("null")
-    public SolicitudDTO2 save(SolicitudDTO solicitudDTO, String authorizationHeader) {
+    public SolicitudDTO2 save(Solicitud solicitudDTO, String authorizationHeader) {
+        System.out.println("PROBANDO");
+        System.out.println("Llegue hasta qui solicitud   2");
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             throw new UnauthorizedException("Missing or invalid authorization header");
             }
-    
-            String token = authorizationHeader.substring(7);
-    
-            Claims claims;
-            try {
-                claims = this.tokenService.decodificarToken(token);
-            } catch (Exception e) {
-                throw new UnauthorizedException("Invalid JWT token: " + e.getMessage());
-            }
-    
-            List<String> authorities = (List<String>) claims.get("authorities");
-            if (authorities != null && !authorities.isEmpty()) {
-                if (!authorities.contains("ROLE_CLIENTE") && !authorities.contains("ROLE_PROPIETARIO")) {
-                    throw new ForbiddenException("Insufficient permissions");
-                }
+            
+        System.out.println("Llegue hasta qui solicitud   3");
+        String token = authorizationHeader.substring(7);
+
+        Claims claims;
+        try {
+            claims = this.tokenService.decodificarToken(token);
+        } catch (Exception e) {
+            throw new UnauthorizedException("Invalid JWT token: " + e.getMessage());
         }
-        Solicitud solicitud = modelMapper.map(solicitudDTO, Solicitud.class);
-        solicitud = solicitudRepositorio.save(solicitud);
+
+        List<String> authorities = (List<String>) claims.get("authorities");
+        if (authorities != null && !authorities.isEmpty()) {
+            if (!authorities.contains("ROLE_CLIENTE") && !authorities.contains("ROLE_PROPIETARIO")) {
+                throw new ForbiddenException("Insufficient permissions");
+            }
+        }
+        
+        Solicitud solicitud = solicitudRepositorio.save(solicitudDTO);
         return modelMapper.map(solicitud, SolicitudDTO2.class);
     }
 

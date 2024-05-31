@@ -45,7 +45,7 @@ public class PropiedadControlador {
 
     @CrossOrigin(origins = "*")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public PropiedadDTO2 save(@RequestBody PropiedadDTO propiedadDTO, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+    public PropiedadDTO2 save(@RequestBody Propiedad propiedadDTO, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
         return propiedadServicio.save(propiedadDTO, authorizationHeader);
     }
 

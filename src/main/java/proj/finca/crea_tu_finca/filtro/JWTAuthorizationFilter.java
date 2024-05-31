@@ -44,15 +44,19 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter{
 		System.out.println( "-------->>>-------->>> Filtro"  );
 		System.out.println( "-------->>>-------->>> Filtro"  );
 		System.out.println( "-------->>>-------->>> Filtro"  );
+		System.out.println("entrando a validaciones");
 		try {
 			if (existeJWTToken(request)) {
+				System.out.println("existe el token");
 				Claims claims = validarToken(request);
 				if (claims.get("authorities") != null) {
+					System.out.println("Autorities no es null");
 					String username = getUsername(request);
 					UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 					UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, userDetails, null);
 					auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
            			SecurityContextHolder.getContext().setAuthentication(auth);
+					System.out.println("termino el flitro");
 				} else {
 					SecurityContextHolder.clearContext();
 				}

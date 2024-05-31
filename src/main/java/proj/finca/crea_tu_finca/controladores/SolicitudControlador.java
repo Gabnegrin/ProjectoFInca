@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import proj.finca.crea_tu_finca.dto.SolicitudDTO;
 import proj.finca.crea_tu_finca.dto.SolicitudDTO2;
+import proj.finca.crea_tu_finca.dto.SolicitudDTO3;
 import proj.finca.crea_tu_finca.entidades.Solicitud;
 import proj.finca.crea_tu_finca.servicio.SolicitudServicio;
 
@@ -45,7 +46,8 @@ public class SolicitudControlador {
 
     @CrossOrigin(origins = "*")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public SolicitudDTO2 save(@RequestBody SolicitudDTO solicitudDTO, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+    public SolicitudDTO2 save(@RequestBody Solicitud solicitudDTO, @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        System.out.println("llegue hasta qui controlador");
         return solicitudServicio.save(solicitudDTO, authorizationHeader);
     }
 

@@ -111,6 +111,7 @@ public class ClienteServicio {
 
 @SuppressWarnings("null")
 public ClienteDTO2 get(Long id, String authorizationHeader) {
+    System.out.println("SELLEGO HATA QUI");
     if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
         throw new UnauthorizedException("Missing or invalid authorization header");
     }
@@ -130,13 +131,15 @@ public ClienteDTO2 get(Long id, String authorizationHeader) {
             throw new ForbiddenException("Insufficient permissions");
         }
     }
-
+    System.out.println("SELLEGO HATA QUI de nuevo");
     Optional<Cliente>clienteOpt = clienterepositorio.findById(id);
     ClienteDTO2 clienteDTO2 = null;
     if(clienteOpt.isPresent()){
         Cliente client = clienteOpt.get();
         clienteDTO2 = modelMapper.map(client, ClienteDTO2.class);
     }
+    System.out.println("yo q se");
+    System.out.println(clienteDTO2.getUsuario());
     return clienteDTO2;
 }
 

@@ -230,7 +230,7 @@ public class PropiedadServicio {
         });
     }
     @SuppressWarnings("null")
-    public PropiedadDTO2 save(PropiedadDTO propiedadDTO, String authorizationHeader) {
+    public PropiedadDTO2 save(Propiedad propiedadDTO, String authorizationHeader) {
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             throw new UnauthorizedException("Missing or invalid authorization header");
             }

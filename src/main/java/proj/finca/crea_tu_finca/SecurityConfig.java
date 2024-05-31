@@ -63,7 +63,13 @@ public class SecurityConfig implements ISecurityConfig {
             new AntPathRequestMatcher("/api/javeriana/grupo25/jwt/**", HttpMethod.DELETE.name()),
             new AntPathRequestMatcher("/api/javeriana/grupo25/jwt/**", HttpMethod.POST.name()),
             new AntPathRequestMatcher("/api/javeriana/grupo25/jwt/**", HttpMethod.GET.name()),
+            new AntPathRequestMatcher("/api/javeriana/grupo25/cliente", HttpMethod.PUT.name()),
             new AntPathRequestMatcher("/api/javeriana/grupo25/cliente", HttpMethod.POST.name()),
+            new AntPathRequestMatcher("/api/javeriana/grupo25/solicitud", HttpMethod.POST.name()),
+            new AntPathRequestMatcher("/api/javeriana/grupo25/solicitud", HttpMethod.PUT.name()),
+            new AntPathRequestMatcher("/api/javeriana/grupo25/propiedad", HttpMethod.POST.name()),
+            new AntPathRequestMatcher("/api/javeriana/grupo25/propiedad", HttpMethod.POST.name()),
+            new AntPathRequestMatcher("/api/javeriana/grupo25/propietario", HttpMethod.PUT.name()),
             new AntPathRequestMatcher("/api/javeriana/grupo25/propietario", HttpMethod.POST.name())
         );
     }
